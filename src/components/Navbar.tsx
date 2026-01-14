@@ -1,4 +1,3 @@
-//typescriptreact
 import React, { useState, useEffect } from 'react';
 
 interface NavbarProps {
@@ -18,7 +17,6 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
     };
 
     useEffect(() => {
-        // Read initial dark mode preference from localStorage
         const darkModePreference = localStorage.getItem('dark-mode');
         if (darkModePreference === 'enabled') {
             setIsDarkMode(true);
@@ -27,10 +25,9 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
             setIsDarkMode(false);
             document.body.classList.remove('dark');
         }
-    }, []); // Empty dependency array means this effect runs only once on mount
+    }, []);
 
     useEffect(() => {
-        // Update localStorage and body class when isDarkMode state changes
         if (isDarkMode) {
             document.body.classList.add('dark');
             localStorage.setItem('dark-mode', 'enabled');
@@ -38,7 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
             document.body.classList.remove('dark');
             localStorage.setItem('dark-mode', 'disabled');
         }
-    }, [isDarkMode]); // Effect runs whenever isDarkMode changes
+    }, [isDarkMode]);
 
     const handleDarkModeToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
         setIsDarkMode(event.target.checked);
@@ -68,13 +65,12 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
                 <div className="ball"></div>
             </label>
 
-            {/* Notification Bell */}
             <a href="#" className="notification" id="notificationIcon" aria-label="Notifications" onClick={() => handleToggleMenu('notification')}>
                 <i className='bx bxs-bell bx-tada-hover'></i>
                 <span className="num">5</span>
             </a>
             <div className={`notification-menu ${showNotificationMenu ? 'show' : ''}`} id="notificationMenu">
-                <ul> {/* Assuming these list items are static for now */}
+                <ul>
                     <li>New message from John</li>
                     <li>Your order has been shipped</li>
                     <li>New comment on your post</li>
@@ -83,12 +79,11 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
                 </ul>
             </div>
 
-            {/* Profile Menu */}
             <a href="#" className="profile" id="profileIcon" onClick={() => handleToggleMenu('profile')}>
                 <img src="img/people.png" alt="Profile" />
             </a>
             <div className={`profile-menu ${showProfileMenu ? 'show' : ''}`} id="profileMenu">
-                <ul> {/* Assuming these list items are static for now */}
+                <ul>
                     <li><a href="#">My Profile</a></li>
                     <li><a href="#">Settings</a></li>
                     <li><a href="#">Log Out</a></li>

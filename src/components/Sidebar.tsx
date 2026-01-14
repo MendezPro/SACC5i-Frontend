@@ -1,38 +1,11 @@
-"use client";
 import React, { useState } from 'react';
-
-const SettingsPage: React.FC = () => {
-    return (
-        <h1>Settings Page</h1>
-    );
-};
-
-const TeamPage: React.FC = () => {
-    return (
-        <h1>Team Page</h1>
-    );
-};
-
-const MessagePage: React.FC = () => {
-    return (
-        <h1>Message Page</h1>
-    );
-};
-
-const MyStorePage: React.FC = () => {
-    return (
-        <h1>My Store Page</h1>
-    );
-};
-
-
 
 interface SidebarProps {
     isHidden: boolean;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isHidden }) => {
-    const [activeItem, setActiveItem] = useState('Dashboard'); // Initial active item
+    const [activeItem, setActiveItem] = useState('Dashboard');
 
     const handleItemClick = (itemText: string) => {
         setActiveItem(itemText);

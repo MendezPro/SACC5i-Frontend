@@ -1,7 +1,5 @@
-"use client";
 import React, { useState } from 'react';
 
-// Define a type for order data
 interface Order {
     id: number;
     img: string;
@@ -11,7 +9,6 @@ interface Order {
     status: 'completed' | 'pending' | 'process';
 }
 
-// Define a type for todo data
 interface Todo {
     id: number;
     text: string;
@@ -19,7 +16,6 @@ interface Todo {
     completed: boolean;
 }
 
-// Dummy data for orders
 const initialOrders: Order[] = [
     { id: 1, img: 'img/people.png', user: 'Micheal John', email: 'micheal_john@mail.com', date: '18-10-2021', status: 'completed' },
     { id: 2, img: 'img/people.png', user: 'Ryan Doe', email: 'riyan_doe@mail.com', date: '01-06-2022', status: 'pending' },
@@ -27,7 +23,7 @@ const initialOrders: Order[] = [
     { id: 4, img: 'img/people.png', user: 'Salma', email: 'salma_doe@mail.com', date: '01-02-2023', status: 'pending' },
     { id: 5, img: 'img/people.png', user: 'Andreas Doe', email: 'anderas_doe@mail.com', date: '31-10-2021', status: 'completed' },
 ];
-// Dummy data for todos
+
 const initialTodos: Todo[] = [
     { id: 1, text: 'Check Inventory', progress: 100, completed: true },
     { id: 2, text: 'Manage Delivery Team', progress: 100, completed: true },
@@ -36,12 +32,12 @@ const initialTodos: Todo[] = [
     { id: 5, text: 'Count Profit Analytics', progress: 10, completed: false },
 ];
 
-const DashboardPage: React.FC = () => {
+const MainContent: React.FC = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState('all');
-    const [todos, setTodos] = useState<Todo[]>(initialTodos); // Using dummy data
-    const [todoFilter, setTodoFilter] = useState<'all' | 'completed' | 'pending'>('all'); // State to manage todo filter
-    const [orders] = useState<Order[]>(initialOrders); // Using dummy data
+    const [todos, setTodos] = useState<Todo[]>(initialTodos);
+    const [todoFilter, setTodoFilter] = useState<'all' | 'completed' | 'pending'>('all');
+    const [orders] = useState<Order[]>(initialOrders);
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
@@ -51,20 +47,12 @@ const DashboardPage: React.FC = () => {
         setFilterStatus(event.target.value);
     };
 
-    const handleTodoMenuClick = (todoId: number) => {
-        // This logic needs to be adjusted to work with React state.
-        // A common approach is to have a state that holds the ID of the currently open menu.\n
-        // Since the request is focused on filtering, we\'ll leave the menu functionality as is for now
-        // and focus on filtering.
-    };
-
     const handleTodoFilterChange = (status: 'all' | 'completed' | 'pending') => {
         setTodoFilter(status);
     };
 
     const handleEditTodo = (todoId: number) => {
         console.log(`Edit clicked for todo ${todoId}`);
-        // Implement edit functionality (e.g., opening a modal)
     };
 
     const handleDeleteTodo = (todoId: number) => {
@@ -127,7 +115,6 @@ const DashboardPage: React.FC = () => {
                 </li>
             </ul>
 
-
             <div className="table-data">
                 <div className="order">
                     <div className="head">
@@ -170,11 +157,9 @@ const DashboardPage: React.FC = () => {
                                         </td>
                                         <td>{order.date}</td>
                                         <td><span className={`status ${order.status}`}>{order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
-
                                         </td>
                                     </tr>
                                 ))}
-                            {/* Add static rows back if needed, but it's better to use dummy data and map */}
                         </tbody>
                     </table>
                 </div>
@@ -208,33 +193,9 @@ const DashboardPage: React.FC = () => {
                         ))}
                     </ul>
                 </div>
-
             </div>
         </main>
     );
 };
 
-//export default DashboardPage;
-
-
-import Sidebar from './Sidebar';
-import Navbar from './Navbar';
-
-import MainContent from './MainContent';
-export default function Home() {
-  const [isSidebarHidden, setIsSidebarHidden] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarHidden(!isSidebarHidden);
-  };
-
-  return (
-    <div className="container"> {/* You might need to adjust this container class based on your CSS */}
-      <Sidebar isHidden={isSidebarHidden} />
-      <section id="content">
-        <Navbar onToggleSidebar={toggleSidebar} />
-        <MainContent />
-      </section>
-    </div>
-  );
-}
+export default MainContent;
