@@ -105,32 +105,21 @@ const WelcomeScreen = () => {
           <h2 className="welcome-question">¿Qué quieres hacer primero?</h2>
         </div>
 
-        <div className="tramites-grid">
+        <div className="tramites-container">
           {tramites.map((tramite) => (
             <button
               key={tramite.id}
-              className={`tramite-card ${!tramite.disponible ? 'disabled' : ''}`}
+              className={`tramite-pill ${!tramite.disponible ? 'disabled' : ''}`}
               onClick={() => handleTramiteClick(tramite)}
               disabled={!tramite.disponible}
-              style={{ '--card-color': tramite.color }}
             >
-              <div className="tramite-icon">
-                <i className={`bx ${tramite.icon}`}></i>
-              </div>
-              <div className="tramite-info">
-                <h3>{tramite.nombre}</h3>
-                <p>{tramite.descripcion}</p>
-                {!tramite.disponible && (
-                  <span className="badge-pronto">Próximamente</span>
-                )}
-              </div>
+              {tramite.nombre}
             </button>
           ))}
         </div>
 
         <button className="dashboard-button" onClick={handleDashboardClick}>
-          <i className='bx bxs-dashboard'></i>
-          Ir al Dashboard
+          Ir a Inicio
         </button>
       </div>
     </div>
