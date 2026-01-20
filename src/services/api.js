@@ -20,7 +20,7 @@ api.interceptors.request.use((config) => {
 });
 
 // Funciones de autenticación
-export const login = (username: string, password: string) => {
+export const login = (username, password) => {
   return api.post('/auth/login', { username, password });
 };
 
@@ -28,7 +28,7 @@ export const getProfile = () => {
   return api.get('/auth/profile');
 };
 
-export const changePassword = (currentPassword: string, newPassword: string) => {
+export const changePassword = (currentPassword, newPassword) => {
   return api.post('/auth/change-password', { currentPassword, newPassword });
 };
 
@@ -37,23 +37,23 @@ export const getUsuarios = (params = {}) => {
   return api.get('/admin/usuarios', { params });
 };
 
-export const createUsuario = (data: any) => {
+export const createUsuario = (data) => {
   return api.post('/admin/usuarios', data);
 };
 
-export const updateUsuario = (id: number, data: any) => {
+export const updateUsuario = (id, data) => {
   return api.put(`/admin/usuarios/${id}`, data);
 };
 
-export const activateUsuario = (id: number) => {
+export const activateUsuario = (id) => {
   return api.patch(`/admin/usuarios/${id}/activate`);
 };
 
-export const deactivateUsuario = (id: number) => {
+export const deactivateUsuario = (id) => {
   return api.patch(`/admin/usuarios/${id}/deactivate`);
 };
 
-export const resetPasswordUsuario = (id: number) => {
+export const resetPasswordUsuario = (id) => {
   return api.patch(`/admin/usuarios/${id}/reset-password`);
 };
 

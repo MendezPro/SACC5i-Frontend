@@ -1,33 +1,11 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { login as loginService, getProfile } from '../services/api';
 
-interface User {
-  id: number;
-  nombre: string;
-  apellido: string;
-  usuario: string;
-  rol: 'super_admin' | 'admin' | 'analista';
-  extension: string;
-  password_changed: boolean;
-  region_id?: number;
-  region_nombre?: string;
-}
+const AuthContext = createContext(null);
 
-interface AuthContextType {
-  user: User | null;
-  token: string | null;
-  loading: boolean;
-  login: (username: string, password: string) => Promise<any>;
-  logout: () => void;
-  isAdmin: () => boolean;
-  isSuperAdmin: () => boolean;
-}
-
-const AuthContext = createContext<AuthContextType | null>(null);
-
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -41,7 +19,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [token]);
 
-  const login = async (username: string, password: string) => {
+  const login = async (username, password) => {
     const response = await loginService(username, password);
     const { token, usuario } = response.data;
     

@@ -2,17 +2,11 @@ import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-interface SidebarProps {
-    isHidden: boolean;
-    activeSection: string;
-    onSectionChange: (section: string) => void;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ isHidden, activeSection, onSectionChange }) => {
+const Sidebar = ({ isHidden, activeSection, onSectionChange }) => {
     const { logout, isAdmin } = useAuth();
     const navigate = useNavigate();
 
-    const handleItemClick = (itemText: string) => {
+    const handleItemClick = (itemText) => {
         onSectionChange(itemText);
     };
 

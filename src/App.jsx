@@ -16,7 +16,7 @@ function DashboardLayout() {
     setIsSidebarHidden(!isSidebarHidden);
   };
 
-  const handleSectionChange = (section: string) => {
+  const handleSectionChange = (section) => {
     setActiveSection(section);
   };
 

@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 
-interface NavbarProps {
-    onToggleSidebar: () => void;
-}
-
-const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
+const Navbar = ({ onToggleSidebar }) => {
     const { user } = useAuth();
     const [showCategoriesMenu, setShowCategoriesMenu] = useState(false);
     const [showNotificationMenu, setShowNotificationMenu] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-    const handleToggleMenu = (menu: 'categories' | 'notification' | 'profile') => {
+    const handleToggleMenu = (menu) => {
         setShowCategoriesMenu(menu === 'categories' ? !showCategoriesMenu : false);
         setShowNotificationMenu(menu === 'notification' ? !showNotificationMenu : false);
         setShowProfileMenu(menu === 'profile' ? !showProfileMenu : false);
@@ -39,7 +35,7 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
         }
     }, [isDarkMode]);
 
-    const handleDarkModeToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleDarkModeToggle = (event) => {
         setIsDarkMode(event.target.checked);
     };
 
@@ -50,7 +46,9 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
             <div className={`categories-menu ${showCategoriesMenu ? 'show' : ''}`} id="categoriesMenu">
                 <ul>
                     <li><a href="#"><i className='bx bxs-home'></i>Home & Garden</a></li>
+
                     <li><a href="#"><i className='bx bxs-football'></i>Sports</a></li>
+                    
                     <li><a href="#"><i className='bx bxs-book'></i>Books</a></li>
                 </ul>
             </div>

@@ -2,21 +2,8 @@ import { useState, useEffect } from 'react';
 import { getUsuarios, createUsuario, activateUsuario, deactivateUsuario, resetPasswordUsuario } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
-interface Usuario {
-  id: number;
-  usuario: string;
-  nombre: string;
-  apellido: string;
-  extension: string;
-  rol: string;
-  region_id?: number;
-  region_nombre?: string;
-  activo: number;
-  password_changed: number;
-}
-
 export default function Usuarios() {
-  const [usuarios, setUsuarios] = useState<Usuario[]>([]);
+  const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [buscar, setBuscar] = useState('');
   const [showForm, setShowForm] = useState(false);
@@ -46,7 +33,7 @@ export default function Usuarios() {
     }
   };
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
     try {
       await createUsuario(newUser);
@@ -54,12 +41,12 @@ export default function Usuarios() {
       setShowForm(false);
       setNewUser({ usuario: '', nombre: '', apellido: '', extension: '', rol: 'analista', region_id: '' });
       loadUsuarios();
-    } catch (error: any) {
+    } catch (error) {
       alert(error.response?.data?.message || 'Error al crear usuario');
     }
   };
 
-  const handleActivate = async (id: number) => {
+  const handleActivate = async (id) => {
     try {
       await activateUsuario(id);
       alert('Usuario activado');
@@ -69,18 +56,18 @@ export default function Usuarios() {
     }
   };
 
-  const handleDeactivate = async (id: number) => {
+  const handleDeactivate = async (id) => {
     if (!confirm('¿Desactivar usuario?')) return;
     try {
       await deactivateUsuario(id);
       alert('Usuario desactivado');
       loadUsuarios();
-    } catch (error: any) {
+    } catch (error) {
       alert(error.response?.data?.message || 'Error al desactivar');
     }
   };
 
-  const handleReset = async (id: number) => {
+  const handleReset = async (id) => {
     if (!confirm('¿Resetear contraseña a extensión?')) return;
     try {
       await resetPasswordUsuario(id);

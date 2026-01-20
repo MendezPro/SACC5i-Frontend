@@ -2,11 +2,7 @@ import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import Usuarios from '../pages/Usuarios';
 
-interface MainContentProps {
-    activeSection: string;
-}
-
-const MainContent: React.FC<MainContentProps> = ({ activeSection }) => {
+const MainContent = ({ activeSection }) => {
     const { user } = useAuth();
 
     // Si la sección activa es Usuarios, renderizar ese componente
