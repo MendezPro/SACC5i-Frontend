@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -24,7 +24,7 @@ export default function Login() {
         alert('⚠️ IMPORTANTE: Debe cambiar su contraseña');
       }
       
-      navigate('/dashboard');
+      navigate('/welcome');
     } catch (err) {
       setError(err.response?.data?.message || 'Error al iniciar sesión');
     } finally {

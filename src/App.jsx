@@ -1,7 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { useState } from 'react';
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
+import WelcomeScreen from './pages/WelcomeScreen/WelcomeScreen';
 import Sidebar from './components/layout/Sidebar/Sidebar';
 import Navbar from './components/layout/Navbar/Navbar';
 import MainContent from './components/layout/MainContent/MainContent';
@@ -44,8 +45,9 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/welcome" element={<WelcomeScreen />} />
           <Route path="/dashboard" element={<DashboardLayout />} />
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Navigate to="/welcome" />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

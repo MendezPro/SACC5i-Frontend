@@ -18,9 +18,9 @@ const Sidebar = ({ isHidden, activeSection, onSectionChange }) => {
 
     return (
         <section id="sidebar" className={isHidden ? 'hide' : ''}>
-            <a href="#" className="brand">
+            <a href="#" className="brand" onClick={() => handleItemClick('Dashboard')}>
                 <i className='bx bxs-smile bx-lg'></i>
-                <span className="text">AdminHub</span>
+                <span className="text">SACC5i</span>
             </a>
             <ul className="side-menu top">
                 <li className={activeSection === 'Dashboard' ? 'active' : ''}>

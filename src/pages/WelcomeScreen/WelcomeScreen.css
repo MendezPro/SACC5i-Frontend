@@ -1,0 +1,197 @@
+/* WelcomeScreen Styles */
+.welcome-screen {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e3a8a 0%, #0c4a6e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.welcome-container {
+  max-width: 1200px;
+  width: 100%;
+  animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.welcome-header {
+  text-align: center;
+  margin-bottom: 50px;
+  color: white;
+}
+
+.welcome-greeting {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-question {
+  font-size: 28px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.tramites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.tramite-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 16px;
+  padding: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-align: left;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.tramite-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--card-color);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tramite-card:hover:not(.disabled) {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.tramite-card:hover:not(.disabled)::before {
+  opacity: 1;
+}
+
+.tramite-card.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.tramite-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--card-color), rgba(60, 145, 230, 0.8));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tramite-icon i {
+  font-size: 36px;
+  color: white;
+}
+
+.tramite-info {
+  flex: 1;
+}
+
+.tramite-info h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.tramite-info p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.badge-pronto {
+  display: inline-block;
+  background: #FD7238;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-top: 8px;
+}
+
+.dashboard-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 18px 40px;
+  background: white;
+  color: #1e3a8a;
+  border: 2px solid white;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-button:hover {
+  background: transparent;
+  color: white;
+  transform: scale(1.05);
+}
+
+.dashboard-button i {
+  font-size: 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .welcome-greeting {
+    font-size: 32px;
+  }
+
+  .welcome-question {
+    font-size: 22px;
+  }
+
+  .tramites-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tramite-card {
+    padding: 20px;
+  }
+
+  .tramite-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .tramite-icon i {
+    font-size: 30px;
+  }
+}

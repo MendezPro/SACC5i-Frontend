@@ -43,14 +43,17 @@ const Navbar = ({ onToggleSidebar }) => {
     return (
         <nav>
             <i className='bx bx-menu bx-sm' onClick={onToggleSidebar}></i>
-            <a href="#" className="nav-link" id="categoriesLink" onClick={() => handleToggleMenu('categories')}>Categories</a>
+            <a href="#" className="nav-link" id="categoriesLink" onClick={() => handleToggleMenu('categories')}>Trámites</a>
             <div className={`categories-menu ${showCategoriesMenu ? 'show' : ''}`} id="categoriesMenu">
                 <ul>
-                    <li><a href="#"><i className='bx bxs-home'></i>Home & Garden</a></li>
-
-                    <li><a href="#"><i className='bx bxs-football'></i>Sports</a></li>
-                    
-                    <li><a href="#"><i className='bx bxs-book'></i>Books</a></li>
+                    <li><a href="#"><i className='bx bx-user-plus'></i>Alta</a></li>
+                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-list-ul'></i>Listado Personal Activo</a></li>
+                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-file'></i>Alta Carta Responsiva</a></li>
+                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-refresh'></i>Actualización</a></li>
+                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-printer'></i>Reimpresión</a></li>
+                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-spreadsheet'></i>Listado Nominal</a></li>
+                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-user-minus'></i>Baja</a></li>
+                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-search'></i>Consulta</a></li>
                 </ul>
             </div>
             <form action="#">

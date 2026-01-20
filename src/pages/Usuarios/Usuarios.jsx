@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getUsuarios, createUsuario, activateUsuario, deactivateUsuario, resetPasswordUsuario } from '../services/api';
-import { useAuth } from '../context/AuthContext';
+import { getUsuarios, createUsuario, activateUsuario, deactivateUsuario, resetPasswordUsuario } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 
 export default function Usuarios() {
   const [usuarios, setUsuarios] = useState([]);
