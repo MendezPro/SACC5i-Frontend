@@ -1,6 +1,7 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import './Sidebar.css';
 
 const Sidebar = ({ isHidden, activeSection, onSectionChange }) => {
     const { logout, isAdmin } = useAuth();

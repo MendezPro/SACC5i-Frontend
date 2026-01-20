@@ -1,6 +1,7 @@
 import React from 'react';
-import { useAuth } from '../context/AuthContext';
-import Usuarios from '../pages/Usuarios';
+import { useAuth } from '../../../context/AuthContext';
+import Usuarios from '../../../pages/Usuarios';
+import './MainContent.css';
 
 const MainContent = ({ activeSection }) => {
     const { user } = useAuth();

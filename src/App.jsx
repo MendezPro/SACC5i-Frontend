@@ -2,9 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { useState } from 'react';
 import Login from './pages/Login';
-import Sidebar from './components/Sidebar';
-import Navbar from './components/Navbar';
-import MainContent from './components/MainContent';
+import Sidebar from './components/layout/Sidebar/Sidebar';
+import Navbar from './components/layout/Navbar/Navbar';
+import MainContent from './components/layout/MainContent/MainContent';
 import './index.css';
 
 function DashboardLayout() {

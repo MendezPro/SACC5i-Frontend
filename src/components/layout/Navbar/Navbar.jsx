@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
+import './Navbar.css';
 
 const Navbar = ({ onToggleSidebar }) => {
     const { user } = useAuth();
