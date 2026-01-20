@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUsuarios, createUsuario, activateUsuario, deactivateUsuario, resetPasswordUsuario } from '../../services/api';
+import { getUsuarios, createUsuario, updateUsuario, activateUsuario, deactivateUsuario, resetPasswordUsuario } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 
 export default function Usuarios() {
@@ -7,6 +7,7 @@ export default function Usuarios() {
   const [loading, setLoading] = useState(true);
   const [buscar, setBuscar] = useState('');
   const [showForm, setShowForm] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
   const [newUser, setNewUser] = useState({
     usuario: '',
     nombre: '',
@@ -43,6 +44,25 @@ export default function Usuarios() {
       loadUsuarios();
     } catch (error) {
       alert(error.response?.data?.message || 'Error al crear usuario');
+    }
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      await updateUsuario(editingUser.id, {
+        usuario: editingUser.usuario,
+        nombre: editingUser.nombre,
+        apellido: editingUser.apellido,
+        extension: editingUser.extension,
+        region_id: editingUser.region_id || null,
+        rol: editingUser.rol
+      });
+      alert('Usuario actualizado exitosamente');
+      setEditingUser(null);
+      loadUsuarios();
+    } catch (error) {
+      alert(error.response?.data?.message || 'Error al actualizar usuario');
     }
   };
 
@@ -152,6 +172,130 @@ export default function Usuarios() {
         </form>
       )}
 
+      {editingUser && (
+        <form 
+          onSubmit={handleUpdate} 
+          style={{ 
+            border: '2px solid #007bff', 
+            padding: '20px', 
+            marginBottom: '20px', 
+            backgroundColor: '#e7f3ff',
+            borderRadius: '8px'
+          }}
+        >
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' }}>
+            <h3 style={{ margin: 0 }}>Editar Usuario: {editingUser.usuario}</h3>
+            <button 
+              type="button" 
+              onClick={() => setEditingUser(null)} 
+              style={{ 
+                padding: '5px 10px', 
+                backgroundColor: '#dc3545', 
+                color: 'white',
+                border: 'none',
+                borderRadius: '3px',
+                cursor: 'pointer'
+              }}
+            >
+              ✕
+            </button>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Usuario:</label>
+              <input
+                placeholder="Usuario (ej: juan_perez)"
+                value={editingUser.usuario}
+                onChange={(e) => setEditingUser({...editingUser, usuario: e.target.value})}
+                style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
+                required
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Nombre:</label>
+              <input
+                placeholder="Nombre"
+                value={editingUser.nombre}
+                onChange={(e) => setEditingUser({...editingUser, nombre: e.target.value})}
+                style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
+                required
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Apellido:</label>
+              <input
+                placeholder="Apellido"
+                value={editingUser.apellido}
+                onChange={(e) => setEditingUser({...editingUser, apellido: e.target.value})}
+                style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
+                required
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Extensión:</label>
+              <input
+                placeholder="Extensión"
+                value={editingUser.extension}
+                onChange={(e) => setEditingUser({...editingUser, extension: e.target.value})}
+                style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
+                required
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Rol:</label>
+              <select
+                value={editingUser.rol}
+                onChange={(e) => setEditingUser({...editingUser, rol: e.target.value})}
+                style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
+              >
+                <option value="analista">Analista</option>
+                {isSuperAdmin() && <option value="admin">Admin</option>}
+                {isSuperAdmin() && <option value="super_admin">Super Admin</option>}
+              </select>
+            </div>
+            <div>
+              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Región ID:</label>
+              <input
+                placeholder="Región ID (1-9, opcional)"
+                type="number"
+                value={editingUser.region_id || ''}
+                onChange={(e) => setEditingUser({...editingUser, region_id: e.target.value})}
+                style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
+              />
+            </div>
+          </div>
+          <div style={{ marginTop: '15px', display: 'flex', gap: '10px' }}>
+            <button 
+              type="submit" 
+              style={{ 
+                padding: '10px 20px',
+                backgroundColor: '#28a745',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer'
+              }}
+            >
+              💾 Actualizar Usuario
+            </button>
+            <button 
+              type="button" 
+              onClick={() => setEditingUser(null)} 
+              style={{ 
+                padding: '10px 20px', 
+                backgroundColor: '#6c757d', 
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer'
+              }}
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      )}
+
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr style={{ backgroundColor: '#f0f0f0' }}>
@@ -180,6 +324,20 @@ export default function Usuarios() {
               <td style={{ border: '1px solid #ccc', padding: '8px' }}>
                 {user.activo ? (
                   <>
+                    <button 
+                      onClick={() => setEditingUser(user)} 
+                      style={{ 
+                        marginRight: '5px',
+                        padding: '5px 10px',
+                        backgroundColor: '#ffc107',
+                        color: 'black',
+                        border: 'none',
+                        borderRadius: '3px',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Editar
+                    </button>
                     <button onClick={() => handleDeactivate(user.id)} style={{ marginRight: '5px' }}>
                       Desactivar
                     </button>

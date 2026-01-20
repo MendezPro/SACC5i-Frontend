@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from '../../../context/AuthContext';
 import Usuarios from '../../../pages/Usuarios/Usuarios';
+import EditarPerfil from '../../../pages/Perfil/EditarPerfil';
 import './MainContent.css';
 
 const MainContent = ({ activeSection }) => {
@@ -13,34 +14,7 @@ const MainContent = ({ activeSection }) => {
 
     // Si la sección activa es Perfil
     if (activeSection === 'Perfil') {
-        return (
-            <main>
-                <div className="head-title">
-                    <div className="left">
-                        <h1>Mi Perfil</h1>
-                        <ul className="breadcrumb">
-                            <li><a href="#">SACC5i</a></li>
-                            <li><i className='bx bx-chevron-right'></i></li>
-                            <li><a className="active" href="#">Perfil</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div style={{ padding: '20px', backgroundColor: 'var(--light)', borderRadius: '10px', marginTop: '20px' }}>
-                    <h2>Información Personal</h2>
-                    <p><strong>Nombre:</strong> {user?.nombre} {user?.apellido}</p>
-                    <p><strong>Usuario:</strong> {user?.usuario}</p>
-                    <p><strong>Rol:</strong> {user?.rol}</p>
-                    <p><strong>Extensión:</strong> {user?.extension}</p>
-                    {user?.region_nombre && <p><strong>Región:</strong> {user?.region_nombre}</p>}
-                    
-                    {!user?.password_changed && (
-                        <p style={{ color: 'red', fontWeight: 'bold', marginTop: '20px' }}>
-                            ⚠️ Debe cambiar su contraseña
-                        </p>
-                    )}
-                </div>
-            </main>
-        );
+        return <EditarPerfil />;
     }
 
     // Si es Solicitudes

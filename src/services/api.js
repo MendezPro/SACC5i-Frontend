@@ -57,4 +57,66 @@ export const resetPasswordUsuario = (id) => {
   return api.patch(`/admin/usuarios/${id}/reset-password`);
 };
 
+// Auth - Actualizar perfil propio
+export const updateProfile = (data) => {
+  return api.put('/auth/profile', data);
+};
+
+// Admin - Estadísticas
+export const getEstadisticasAdmin = () => {
+  return api.get('/admin/estadisticas');
+};
+
+// ==========================================
+// SOLICITUDES (módulo ALTA)
+// ==========================================
+
+export const getSolicitudes = (params = {}) => {
+  return api.get('/solicitudes', { params });
+};
+
+export const getSolicitudById = (id) => {
+  return api.get(`/solicitudes/${id}`);
+};
+
+export const createSolicitud = (data) => {
+  return api.post('/solicitudes', data);
+};
+
+export const updateSolicitud = (id, data) => {
+  return api.put(`/solicitudes/${id}`, data);
+};
+
+export const deleteSolicitud = (id) => {
+  return api.delete(`/solicitudes/${id}`);
+};
+
+export const updateEstatusSolicitud = (id, estatus) => {
+  return api.put(`/solicitudes/${id}/estatus`, { estatus });
+};
+
+export const getEstadisticasSolicitudes = () => {
+  return api.get('/solicitudes/estadisticas');
+};
+
+// ==========================================
+// CATÁLOGOS
+// ==========================================
+
+export const getTiposOficio = () => {
+  return api.get('/catalogos/tipos-oficio');
+};
+
+export const getMunicipios = () => {
+  return api.get('/catalogos/municipios');
+};
+
+export const getRegiones = () => {
+  return api.get('/catalogos/regiones');
+};
+
+export const getEstatus = () => {
+  return api.get('/catalogos/estatus');
+};
+
 export default api;
