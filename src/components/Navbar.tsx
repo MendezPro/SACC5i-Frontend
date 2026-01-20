@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 interface NavbarProps {
     onToggleSidebar: () => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
+    const { user } = useAuth();
     const [showCategoriesMenu, setShowCategoriesMenu] = useState(false);
     const [showNotificationMenu, setShowNotificationMenu] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -84,9 +86,12 @@ const Navbar: React.FC<NavbarProps> = ({ onToggleSidebar }) => {
             </a>
             <div className={`profile-menu ${showProfileMenu ? 'show' : ''}`} id="profileMenu">
                 <ul>
-                    <li><a href="#">My Profile</a></li>
-                    <li><a href="#">Settings</a></li>
-                    <li><a href="#">Log Out</a></li>
+                    <li style={{padding: '10px', borderBottom: '1px solid #ccc'}}>
+                        <strong>{user?.nombre} {user?.apellido}</strong><br/>
+                        <small>{user?.rol}</small>
+                    </li>
+                    <li><a href="#">Mi Perfil</a></li>
+                    <li><a href="#">Configuración</a></li>
                 </ul>
             </div>
         </nav>

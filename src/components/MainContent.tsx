@@ -1,116 +1,149 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useAuth } from '../context/AuthContext';
+import Usuarios from '../pages/Usuarios';
 
-interface Order {
-    id: number;
-    img: string;
-    user: string;
-    email: string;
-    date: string;
-    status: 'completed' | 'pending' | 'process';
+interface MainContentProps {
+    activeSection: string;
 }
 
-interface Todo {
-    id: number;
-    text: string;
-    progress: number;
-    completed: boolean;
-}
+const MainContent: React.FC<MainContentProps> = ({ activeSection }) => {
+    const { user } = useAuth();
 
-const initialOrders: Order[] = [
-    { id: 1, img: 'img/people.png', user: 'Micheal John', email: 'micheal_john@mail.com', date: '18-10-2021', status: 'completed' },
-    { id: 2, img: 'img/people.png', user: 'Ryan Doe', email: 'riyan_doe@mail.com', date: '01-06-2022', status: 'pending' },
-    { id: 3, img: 'img/people.png', user: 'Tarry White', email: 'tarry_white@mail.com', date: '14-10-2021', status: 'process' },
-    { id: 4, img: 'img/people.png', user: 'Salma', email: 'salma_doe@mail.com', date: '01-02-2023', status: 'pending' },
-    { id: 5, img: 'img/people.png', user: 'Andreas Doe', email: 'anderas_doe@mail.com', date: '31-10-2021', status: 'completed' },
-];
+    // Si la sección activa es Usuarios, renderizar ese componente
+    if (activeSection === 'Usuarios') {
+        return <Usuarios />;
+    }
 
-const initialTodos: Todo[] = [
-    { id: 1, text: 'Check Inventory', progress: 100, completed: true },
-    { id: 2, text: 'Manage Delivery Team', progress: 100, completed: true },
-    { id: 3, text: 'Contact Salma: Confirm Delivery', progress: 45, completed: false },
-    { id: 4, text: 'Update Shop Catalogue', progress: 67, completed: false },
-    { id: 5, text: 'Count Profit Analytics', progress: 10, completed: false },
-];
+    // Si la sección activa es Perfil
+    if (activeSection === 'Perfil') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Mi Perfil</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Perfil</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', backgroundColor: 'var(--light)', borderRadius: '10px', marginTop: '20px' }}>
+                    <h2>Información Personal</h2>
+                    <p><strong>Nombre:</strong> {user?.nombre} {user?.apellido}</p>
+                    <p><strong>Usuario:</strong> {user?.usuario}</p>
+                    <p><strong>Rol:</strong> {user?.rol}</p>
+                    <p><strong>Extensión:</strong> {user?.extension}</p>
+                    {user?.region_nombre && <p><strong>Región:</strong> {user?.region_nombre}</p>}
+                    
+                    {!user?.password_changed && (
+                        <p style={{ color: 'red', fontWeight: 'bold', marginTop: '20px' }}>
+                            ⚠️ Debe cambiar su contraseña
+                        </p>
+                    )}
+                </div>
+            </main>
+        );
+    }
 
-const MainContent: React.FC = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filterStatus, setFilterStatus] = useState('all');
-    const [todos, setTodos] = useState<Todo[]>(initialTodos);
-    const [todoFilter, setTodoFilter] = useState<'all' | 'completed' | 'pending'>('all');
-    const [orders] = useState<Order[]>(initialOrders);
+    // Si es Solicitudes
+    if (activeSection === 'Solicitudes') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Gestión de Solicitudes</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Solicitudes</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de solicitudes en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
 
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
-    };
+    // Si es Reportes
+    if (activeSection === 'Reportes') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Reportes</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Reportes</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de reportes en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
 
-    const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setFilterStatus(event.target.value);
-    };
-
-    const handleTodoFilterChange = (status: 'all' | 'completed' | 'pending') => {
-        setTodoFilter(status);
-    };
-
-    const handleEditTodo = (todoId: number) => {
-        console.log(`Edit clicked for todo ${todoId}`);
-    };
-
-    const handleDeleteTodo = (todoId: number) => {
-        setTodos(todos.filter(todo => todo.id !== todoId));
-    };
-
-    const handleToggleTodoComplete = (todoId: number) => {
-        setTodos(todos.map(todo =>
-            todo.id === todoId ? { ...todo, completed: !todo.completed, progress: todo.completed ? 0 : 100 } : todo
-        ));
-    };
-
-    const filteredTodos = todos.filter(todo => {
-        if (todoFilter === 'all') return true;
-        return todoFilter === 'completed' ? todo.completed : !todo.completed;
-    });
-
+    // Dashboard por defecto
     return (
         <main>
             <div className="head-title">
                 <div className="left">
-                    <h1>Dashboard</h1>
+                    <h1>Bienvenido, {user?.nombre} {user?.apellido}</h1>
                     <ul className="breadcrumb">
                         <li>
-                            <a href="#">Dashboard</a>
+                            <a href="#">SACC5i</a>
                         </li>
                         <li><i className='bx bx-chevron-right' ></i></li>
                         <li>
-                            <a className="active" href="#">Home</a>
+                            <a className="active" href="#">Dashboard</a>
                         </li>
                     </ul>
                 </div>
-                <a href="#" className="btn-download">
-                    <i className='bx bxs-cloud-download bx-fade-down-hover' ></i>
-                    <span className="text">Download PDF</span>
-                </a>
             </div>
+
+            {/* Alerta si debe cambiar contraseña */}
+            {!user?.password_changed && (
+                <div style={{ 
+                    padding: '15px', 
+                    backgroundColor: '#fff3cd', 
+                    border: '1px solid #ffc107',
+                    borderRadius: '5px',
+                    marginBottom: '20px',
+                    color: '#856404'
+                }}>
+                    <strong>⚠️ IMPORTANTE:</strong> Debe cambiar su contraseña por seguridad.
+                </div>
+            )}
 
             <ul className="box-info">
                 <li>
-                    <i className='bx bxs-calendar-check' ></i>
+                    <i className='bx bxs-user' ></i>
                     <span className="text">
-                        <h3>1020</h3>
-                        <p>New Order</p>
+                        <h3>{user?.usuario}</h3>
+                        <p>Usuario</p>
                     </span>
                 </li>
                 <li>
-                    <i className='bx bxs-group' ></i>
+                    <i className='bx bxs-id-card' ></i>
                     <span className="text">
-                        <h3>2834</h3>
-                        <p>Visitors</p>
+                        <h3>{user?.rol}</h3>
+                        <p>Rol</p>
                     </span>
                 </li>
                 <li>
-                    <i className='bx bxs-dollar-circle' ></i>
+                    <i className='bx bxs-phone' ></i>
                     <span className="text">
-                        <h3>N$2543.00</h3>
-                        <p>Total Sales</p>
+                        <h3>{user?.extension}</h3>
+                        <p>Extensión</p>
                     </span>
                 </li>
             </ul>
@@ -118,79 +151,30 @@ const MainContent: React.FC = () => {
             <div className="table-data">
                 <div className="order">
                     <div className="head">
-                        <h3>Recent Orders</h3>
-                        <i className='bx bx-search' ></i>
-                        <i className='bx bx-filter' ></i>
+                        <h3>Solicitudes Recientes</h3>
+                        <i className='bx bx-plus icon' style={{cursor: 'pointer'}} title="Nueva Solicitud"></i>
                     </div>
-                    <div className="order-filters">
-                        <input type="text" id="searchUser" placeholder="Search by user..." value={searchTerm} onChange={handleSearchChange} />
-                        <select id="filterStatus" value={filterStatus} onChange={handleFilterChange}>
-                            <option value="all">All</option>
-                            <option value="completed">Completed</option>
-                            <option value="pending">Pending</option>
-                            <option value="process">Process</option>
-                        </select>
-                    </div>
-                   <table>
-                      <thead>
-                        <tr>
-                          <th>İmg</th>
-                          <th>User</th>
-                          <th>Date Order</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                        <tbody>
-                          {orders
-                            .filter(order => filterStatus === 'all' || order.status === filterStatus)
-                            .filter(order =>
-                              order.user.toLowerCase().includes(searchTerm.toLowerCase()) || order.email.toLowerCase().includes(searchTerm.toLowerCase())
-                            )
-                            .map(order => (
-                                <tr key={order.id}>
-                                <td>
-                                  <img src={order.img} alt="User Image" />
-                                </td>
-                                <td>
-                                  <span>{order.user}</span>
-                                  <p>{order.email}</p>
-                                        </td>
-                                        <td>{order.date}</td>
-                                        <td><span className={`status ${order.status}`}>{order.status.charAt(0).toUpperCase() + order.status.slice(1)}</span>
-                                        </td>
-                                    </tr>
-                                ))}
-                        </tbody>
-                    </table>
+                    <p style={{padding: '20px', textAlign: 'center', color: 'var(--dark-grey)'}}>
+                        No hay solicitudes registradas. Esta sección se implementará próximamente.
+                    </p>
                 </div>
                 <div className="todo">
                     <div className="head">
-                        <h3>Todos</h3>
-                        <i className='bx bx-plus icon'></i>
-                    </div>
-                    <div className="todo-filters">
-                        <button onClick={() => handleTodoFilterChange('all')}>All</button>
-                        <button onClick={() => handleTodoFilterChange('completed')} className={todoFilter === 'completed' ? 'active completed' : 'completed'}>Completed</button>
-                        <button onClick={() => handleTodoFilterChange('pending')} className={todoFilter === 'pending' ? 'active pending' : 'pending'}>Pending</button>
+                        <h3>Accesos Rápidos</h3>
                     </div>
                     <ul className="todo-list">
-                        {filteredTodos.map(todo => (
-                            <li
-                                key={todo.id}
-                                className={`${todo.completed ? 'completed' : 'not-completed'}`}
-                                style={{ '--progress-width': `${todo.progress}%` } as React.CSSProperties}
-                            >
-                                <span className="progress-text">{`%${todo.progress}`}</span>
-                                <p>{todo.text}</p>
-                                <i className='bx bx-dots-vertical-rounded menu-icon'>
-                                    <dl className="content-menu">
-                                        <dt className="menu-item"><a href="#" onClick={() => handleEditTodo(todo.id)}>Edit</a></dt>
-                                        <dt className="menu-item"><a href="#" onClick={() => handleDeleteTodo(todo.id)}>Delete</a></dt>
-                                        <dt className="menu-item"><a href="#" onClick={() => handleToggleTodoComplete(todo.id)}>Mark as {todo.completed ? 'Pending' : 'Completed'}</a></dt>
-                                    </dl>
-                                </i>
-                            </li>
-                        ))}
+                        <li style={{cursor: 'pointer', border: 'none', padding: '15px'}}>
+                            <i className='bx bx-file' style={{fontSize: '24px', marginRight: '10px'}}></i>
+                            <p>Nueva Solicitud</p>
+                        </li>
+                        <li style={{cursor: 'pointer', border: 'none', padding: '15px'}}>
+                            <i className='bx bx-search' style={{fontSize: '24px', marginRight: '10px'}}></i>
+                            <p>Buscar Solicitud</p>
+                        </li>
+                        <li style={{cursor: 'pointer', border: 'none', padding: '15px'}}>
+                            <i className='bx bx-bar-chart' style={{fontSize: '24px', marginRight: '10px'}}></i>
+                            <p>Ver Reportes</p>
+                        </li>
                     </ul>
                 </div>
             </div>

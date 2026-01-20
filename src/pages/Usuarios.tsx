@@ -93,8 +93,17 @@ export default function Usuarios() {
   if (loading) return <div>Cargando...</div>;
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '20px auto', padding: '20px' }}>
-      <h1>Gestión de Usuarios</h1>
+    <main style={{ width: '100%', padding: '20px' }}>
+      <div className="head-title">
+        <div className="left">
+          <h1>Gestión de Usuarios</h1>
+          <ul className="breadcrumb">
+            <li><a href="#">SACC5i</a></li>
+            <li><i className='bx bx-chevron-right'></i></li>
+            <li><a className="active" href="#">Usuarios</a></li>
+          </ul>
+        </div>
+      </div>
 
       <div style={{ marginBottom: '20px' }}>
         <input
@@ -197,6 +206,6 @@ export default function Usuarios() {
           ))}
         </tbody>
       </table>
-    </div>
+    </main>
   );
 }

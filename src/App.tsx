@@ -1,18 +1,41 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { useState } from 'react';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
-import Usuarios from './pages/Usuarios';
-import { ReactNode } from 'react';
+import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
+import MainContent from './components/MainContent';
+import './index.css';
 
-function PrivateRoute({ children, adminOnly = false }: { children: ReactNode; adminOnly?: boolean }) {
-  const { user, loading, isAdmin } = useAuth();
+function DashboardLayout() {
+  const { user, loading } = useAuth();
+  const [isSidebarHidden, setIsSidebarHidden] = useState(false);
+  const [activeSection, setActiveSection] = useState('Dashboard');
+
+  const toggleSidebar = () => {
+    setIsSidebarHidden(!isSidebarHidden);
+  };
+
+  const handleSectionChange = (section: string) => {
+    setActiveSection(section);
+  };
 
   if (loading) return <div>Cargando...</div>;
   if (!user) return <Navigate to="/login" />;
-  if (adminOnly && !isAdmin()) return <Navigate to="/dashboard" />;
 
-  return <>{children}</>;
+  return (
+    <div className="container">
+      <Sidebar 
+        isHidden={isSidebarHidden} 
+        activeSection={activeSection}
+        onSectionChange={handleSectionChange}
+      />
+      <section id="content">
+        <Navbar onToggleSidebar={toggleSidebar} />
+        <MainContent activeSection={activeSection} />
+      </section>
+    </div>
+  );
 }
 
 function App() {
@@ -21,25 +44,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
-          
-          <Route 
-            path="/dashboard" 
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            } 
-          />
-          
-          <Route 
-            path="/usuarios" 
-            element={
-              <PrivateRoute adminOnly>
-                <Usuarios />
-              </PrivateRoute>
-            } 
-          />
-          
+          <Route path="/dashboard" element={<DashboardLayout />} />
           <Route path="/" element={<Navigate to="/dashboard" />} />
         </Routes>
       </AuthProvider>

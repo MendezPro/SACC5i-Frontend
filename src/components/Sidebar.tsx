@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
     isHidden: boolean;
+    activeSection: string;
+    onSectionChange: (section: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ isHidden }) => {
-    const [activeItem, setActiveItem] = useState('Dashboard');
+const Sidebar: React.FC<SidebarProps> = ({ isHidden, activeSection, onSectionChange }) => {
+    const { logout, isAdmin } = useAuth();
+    const navigate = useNavigate();
 
     const handleItemClick = (itemText: string) => {
-        setActiveItem(itemText);
+        onSectionChange(itemText);
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
     };
 
     return (
@@ -18,48 +28,44 @@ const Sidebar: React.FC<SidebarProps> = ({ isHidden }) => {
                 <span className="text">AdminHub</span>
             </a>
             <ul className="side-menu top">
-                <li className={activeItem === 'Dashboard' ? 'active' : ''}>
-                    <a href="#dashboard" onClick={() => handleItemClick('Dashboard')}>
+                <li className={activeSection === 'Dashboard' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Dashboard')}>
                         <i className='bx bxs-dashboard bx-sm'></i>
                         <span className="text">Dashboard</span>
                     </a>
                 </li>
-                <li className={activeItem === 'My Store' ? 'active' : ''}>
-                    <a href="#mystore" onClick={() => handleItemClick('My Store')}>
-                        <i className='bx bxs-shopping-bag-alt bx-sm'></i>
-                        <span className="text">My Store</span>
+                <li className={activeSection === 'Solicitudes' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Solicitudes')}>
+                        <i className='bx bxs-file bx-sm'></i>
+                        <span className="text">Solicitudes</span>
                     </a>
                 </li>
-                <li className={activeItem === 'Analytics' ? 'active': ''}>
-                    <a href="#analytics" onClick={() => handleItemClick('Analytics')}>
+                {isAdmin() && (
+                    <li className={activeSection === 'Usuarios' ? 'active': ''}>
+                        <a href="#" onClick={() => handleItemClick('Usuarios')}>
+                            <i className='bx bxs-group bx-sm'></i>
+                            <span className="text">Usuarios</span>
+                        </a>
+                    </li>
+                )}
+                <li className={activeSection === 'Reportes' ? 'active': ''}>
+                    <a href="#" onClick={() => handleItemClick('Reportes')}>
                         <i className='bx bxs-doughnut-chart bx-sm'></i>
-                        <span className="text">Analytics</span>
-                    </a>
-                </li>
-                <li className={activeItem === 'Message' ? 'active': ''}>
-                    <a href="#message" onClick={() => handleItemClick('Message')}>
-                        <i className='bx bxs-message-dots bx-sm'></i>
-                        <span className="text">Message</span>
-                    </a>
-                </li>
-                <li className={activeItem === 'Team' ? 'active': ''}>
-                    <a href="#team" onClick={() => handleItemClick('Team')}>
-                        <i className='bx bxs-group bx-sm'></i>
-                        <span className="text">Team</span>
+                        <span className="text">Reportes</span>
                     </a>
                 </li>
             </ul>
             <ul className="side-menu bottom">
-                <li className={activeItem === 'Settings' ? 'active': ''}>
-                    <a href="#settings" onClick={() => handleItemClick('Settings')}>
-                        <i className='bx bxs-cog bx-sm bx-spin-hover'></i>
-                        <span className="text">Settings</span>
+                <li className={activeSection === 'Perfil' ? 'active': ''}>
+                    <a href="#" onClick={() => handleItemClick('Perfil')}>
+                        <i className='bx bxs-user bx-sm'></i>
+                        <span className="text">Mi Perfil</span>
                     </a>
                 </li>
-                <li className={activeItem === 'Logout' ? 'active': ''}>
-                    <a href="#logout" className="logout" onClick={() => handleItemClick('Logout')}>
+                <li>
+                    <a href="#" className="logout" onClick={handleLogout}>
                         <i className='bx bx-power-off bx-sm bx-burst-hover'></i>
-                        <span className="text">Logout</span>
+                        <span className="text">Cerrar Sesión</span>
                     </a>
                 </li>
             </ul>
