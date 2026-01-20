@@ -17,6 +17,206 @@ const MainContent = ({ activeSection }) => {
         return <EditarPerfil />;
     }
 
+    // Si es Configuración
+    if (activeSection === 'Configuración') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Configuración</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Configuración</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de configuración en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
+
+    // Trámites
+    if (activeSection === 'Alta') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Alta</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Alta</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de Alta en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
+
+    if (activeSection === 'Listado Personal Activo') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Listado Personal Activo</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Listado Personal Activo</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de Listado Personal Activo en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
+
+    if (activeSection === 'Alta Carta Responsiva') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Alta Carta Responsiva</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Alta Carta Responsiva</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de Alta Carta Responsiva en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
+
+    if (activeSection === 'Actualización') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Actualización</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Actualización</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de Actualización en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
+
+    if (activeSection === 'Reimpresión') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Reimpresión</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Reimpresión</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de Reimpresión en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
+
+    if (activeSection === 'Listado Nominal') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Listado Nominal</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Listado Nominal</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de Listado Nominal en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
+
+    if (activeSection === 'Baja') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Baja</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Baja</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de Baja en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
+
+    if (activeSection === 'Consulta') {
+        return (
+            <main>
+                <div className="head-title">
+                    <div className="left">
+                        <h1>Consulta</h1>
+                        <ul className="breadcrumb">
+                            <li><a href="#">SACC5i</a></li>
+                            <li><i className='bx bx-chevron-right'></i></li>
+                            <li><a className="active" href="#">Consulta</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    <p style={{ color: 'var(--dark-grey)', fontSize: '18px' }}>
+                        Módulo de Consulta en desarrollo...
+                    </p>
+                </div>
+            </main>
+        );
+    }
+
     // Si es Solicitudes
     if (activeSection === 'Solicitudes') {
         return (

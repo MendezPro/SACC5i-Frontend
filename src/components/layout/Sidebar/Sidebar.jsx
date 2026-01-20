@@ -29,6 +29,54 @@ const Sidebar = ({ isHidden, activeSection, onSectionChange }) => {
                         <span className="text">Dashboard</span>
                     </a>
                 </li>
+                <li className={activeSection === 'Alta' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Alta')}>
+                        <i className='bx bx-user-plus bx-sm'></i>
+                        <span className="text">Alta</span>
+                    </a>
+                </li>
+                <li className={activeSection === 'Listado Personal Activo' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Listado Personal Activo')}>
+                        <i className='bx bx-list-ul bx-sm'></i>
+                        <span className="text">Listado Personal Activo</span>
+                    </a>
+                </li>
+                <li className={activeSection === 'Alta Carta Responsiva' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Alta Carta Responsiva')}>
+                        <i className='bx bx-file bx-sm'></i>
+                        <span className="text">Alta Carta Responsiva</span>
+                    </a>
+                </li>
+                <li className={activeSection === 'Actualización' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Actualización')}>
+                        <i className='bx bx-refresh bx-sm'></i>
+                        <span className="text">Actualización</span>
+                    </a>
+                </li>
+                <li className={activeSection === 'Reimpresión' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Reimpresión')}>
+                        <i className='bx bx-printer bx-sm'></i>
+                        <span className="text">Reimpresión</span>
+                    </a>
+                </li>
+                <li className={activeSection === 'Listado Nominal' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Listado Nominal')}>
+                        <i className='bx bx-spreadsheet bx-sm'></i>
+                        <span className="text">Listado Nominal</span>
+                    </a>
+                </li>
+                <li className={activeSection === 'Baja' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Baja')}>
+                        <i className='bx bx-user-minus bx-sm'></i>
+                        <span className="text">Baja</span>
+                    </a>
+                </li>
+                <li className={activeSection === 'Consulta' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleItemClick('Consulta')}>
+                        <i className='bx bx-search bx-sm'></i>
+                        <span className="text">Consulta</span>
+                    </a>
+                </li>
                 <li className={activeSection === 'Solicitudes' ? 'active' : ''}>
                     <a href="#" onClick={() => handleItemClick('Solicitudes')}>
                         <i className='bx bxs-file bx-sm'></i>
@@ -47,20 +95,6 @@ const Sidebar = ({ isHidden, activeSection, onSectionChange }) => {
                     <a href="#" onClick={() => handleItemClick('Reportes')}>
                         <i className='bx bxs-doughnut-chart bx-sm'></i>
                         <span className="text">Reportes</span>
-                    </a>
-                </li>
-            </ul>
-            <ul className="side-menu bottom">
-                <li className={activeSection === 'Perfil' ? 'active': ''}>
-                    <a href="#" onClick={() => handleItemClick('Perfil')}>
-                        <i className='bx bxs-user bx-sm'></i>
-                        <span className="text">Mi Perfil</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" className="logout" onClick={handleLogout}>
-                        <i className='bx bx-power-off bx-sm bx-burst-hover'></i>
-                        <span className="text">Cerrar Sesión</span>
                     </a>
                 </li>
             </ul>

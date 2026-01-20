@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
-const Navbar = ({ onToggleSidebar }) => {
-    const { user } = useAuth();
+const Navbar = ({ onToggleSidebar, onSectionChange }) => {
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
     const [showCategoriesMenu, setShowCategoriesMenu] = useState(false);
     const [showNotificationMenu, setShowNotificationMenu] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -40,22 +42,19 @@ const Navbar = ({ onToggleSidebar }) => {
         setIsDarkMode(event.target.checked);
     };
 
+    const handleProfileMenuClick = (section) => {
+        if (section === 'logout') {
+            logout();
+            navigate('/login');
+        } else {
+            onSectionChange(section);
+            setShowProfileMenu(false);
+        }
+    };
+
     return (
         <nav>
             <i className='bx bx-menu bx-sm' onClick={onToggleSidebar}></i>
-            <a href="#" className="nav-link" id="categoriesLink" onClick={() => handleToggleMenu('categories')}>Trámites</a>
-            <div className={`categories-menu ${showCategoriesMenu ? 'show' : ''}`} id="categoriesMenu">
-                <ul>
-                    <li><a href="#"><i className='bx bx-user-plus'></i>Alta</a></li>
-                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-list-ul'></i>Listado Personal Activo</a></li>
-                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-file'></i>Alta Carta Responsiva</a></li>
-                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-refresh'></i>Actualización</a></li>
-                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-printer'></i>Reimpresión</a></li>
-                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-spreadsheet'></i>Listado Nominal</a></li>
-                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-user-minus'></i>Baja</a></li>
-                    <li><a href="#" style={{opacity: 0.5}}><i className='bx bx-search'></i>Consulta</a></li>
-                </ul>
-            </div>
             <form action="#">
                 <div className="form-input">
                     <input type="search" placeholder="Search..." />
@@ -92,8 +91,21 @@ const Navbar = ({ onToggleSidebar }) => {
                         <strong>{user?.nombre} {user?.apellido}</strong><br/>
                         <small>{user?.rol}</small>
                     </li>
-                    <li><a href="#">Mi Perfil</a></li>
-                    <li><a href="#">Configuración</a></li>
+                    <li>
+                        <a href="#" onClick={(e) => { e.preventDefault(); handleProfileMenuClick('Perfil'); }}>
+                            <i className='bx bxs-user'></i> Mi Perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onClick={(e) => { e.preventDefault(); handleProfileMenuClick('Configuración'); }}>
+                            <i className='bx bxs-cog'></i> Configuración
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onClick={(e) => { e.preventDefault(); handleProfileMenuClick('logout'); }} style={{color: '#dc3545'}}>
+                            <i className='bx bx-power-off'></i> Cerrar Sesión
+                        </a>
+                    </li>
                 </ul>
             </div>
         </nav>

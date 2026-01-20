@@ -32,7 +32,10 @@ function DashboardLayout() {
         onSectionChange={handleSectionChange}
       />
       <section id="content">
-        <Navbar onToggleSidebar={toggleSidebar} />
+        <Navbar 
+          onToggleSidebar={toggleSidebar}
+          onSectionChange={handleSectionChange}
+        />
         <MainContent activeSection={activeSection} />
       </section>
     </div>
