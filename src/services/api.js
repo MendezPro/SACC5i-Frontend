@@ -29,7 +29,7 @@ export const getProfile = () => {
 };
 
 export const changePassword = (currentPassword, newPassword) => {
-  return api.post('/auth/change-password', { currentPassword, newPassword });
+  return api.put('/auth/change-password', { currentPassword, newPassword });
 };
 
 // Funciones de admin
