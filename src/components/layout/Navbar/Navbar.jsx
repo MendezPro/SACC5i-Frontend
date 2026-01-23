@@ -113,3 +113,5 @@ const Navbar = ({ onToggleSidebar, onSectionChange }) => {
 };
 
 export default Navbar;
+
+
